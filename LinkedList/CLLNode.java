@@ -1,15 +1,15 @@
 package LinkedList;
 
-public class ListNode {
+public class CLLNode {
   public int data;
-  public ListNode next;
+  public CLLNode next;
 
-  public ListNode() {
+  public CLLNode() {
     next = null;
     data = Integer.MIN_VALUE;
   }
 
-  public ListNode(int data) {
+  public CLLNode(int data) {
     next = null;
     this.data = data;
   }
@@ -22,11 +22,11 @@ public class ListNode {
     return data;
   }
 
-  public void setNext(ListNode next) {
+  public void setNext(CLLNode next) {
     this.next = next;
   }
 
-  public ListNode getNext() {
+  public CLLNode getNext() {
     return this.next;
   }
 }
