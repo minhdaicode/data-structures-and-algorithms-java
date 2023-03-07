@@ -1,0 +1,44 @@
+package LinkedList;
+
+public class DLLNode {
+  public int data;
+  public DLLNode prev;
+  public DLLNode next;
+
+  public DLLNode(int data) {
+    this.data = data;
+    prev = null;
+    next = null;
+  }
+
+  public DLLNode(int data, DLLNode prev, DLLNode next) {
+    this.data = data;
+    this.prev = prev;
+    this.next = next;
+  }
+
+  public int getData() {
+    return data;
+  }
+
+  public void setData(int data) {
+    this.data = data;
+  }
+
+  public DLLNode getPrev() {
+    return prev;
+  }
+
+  public void setPrev(DLLNode where) {
+    this.prev = where;
+  }
+
+  public DLLNode getNext() {
+    return next;
+  }
+
+  public void setNext(DLLNode where) {
+    this.next = where;
+  }
+
+}
