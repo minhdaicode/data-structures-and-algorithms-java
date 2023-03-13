@@ -1,16 +1,17 @@
 package Stack;
 
-public class FixedSizeArrayStack {
+public class DynamicArrayStack {
   protected int capacity;
   public static final int CAPACITY = 16;
+  public static int MINCAPACITY = 1 << 15;
   protected int[] stackRep;
   protected int top = -1;
 
-  public FixedSizeArrayStack() {
+  public DynamicArrayStack() {
     this(CAPACITY);
   }
 
-  public FixedSizeArrayStack(int cap) {
+  public DynamicArrayStack(int cap) {
     capacity = cap;
     stackRep = new int[capacity];
   }
@@ -25,8 +26,29 @@ public class FixedSizeArrayStack {
 
   public void push(int data) throws Exception {
     if (size() == capacity)
-      throw new Exception("Stack is full");
+      expand();
     stackRep[++top] = data;
+  }
+
+  private void expand() {
+    int length = size();
+    int[] newstack = new int[length << 1];
+    System.arraycopy(stackRep, 0, newstack, 0, length);
+    stackRep = newstack;
+    this.capacity = this.capacity << 1;
+  }
+
+  private void shrink() {
+    int length = top + 1;
+    if (length <= MINCAPACITY || top << 2 >= length)
+      return;
+    length = length + (top << 1);
+    if (top < MINCAPACITY)
+      length = MINCAPACITY;
+    int[] newStack = new int[length];
+    System.arraycopy(stackRep, 0, newStack, 0, top + 1);
+    stackRep = newStack;
+    capacity = length;
   }
 
   public int top() throws Exception {
@@ -38,9 +60,10 @@ public class FixedSizeArrayStack {
   public int pop() throws Exception {
     int data;
     if (isEmpty())
-      throw new Exception("Stack is empty");
+      throw new Exception("Stack is empty.");
     data = stackRep[top];
     stackRep[top--] = Integer.MIN_VALUE;
+    shrink();
     return data;
   }
 
@@ -55,4 +78,5 @@ public class FixedSizeArrayStack {
       }
     return s + "]";
   }
+
 }
